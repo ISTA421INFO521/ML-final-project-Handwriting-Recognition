@@ -1,5 +1,5 @@
 # Title 
-Handwriting To Speech 
+Bulletin: Handwriting To Speech 
 
 # Names
 Heba Abdelrazzak, Ani Chitransh, Ankit Pal

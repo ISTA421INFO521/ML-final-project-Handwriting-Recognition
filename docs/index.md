@@ -1,4 +1,4 @@
-#
+# final_project
 
 Project description
 
@@ -31,26 +31,11 @@ Started on 2022-10-26.
 ├── src                <- Source code for use in this project.
 |__ output             <- Temporary Output files
 ```
-## Features
-- Commit Message checking via commitlint
-- [Local Testing via pre-commit](https://pre-commit.com/)
-- Github Integration 
-- CI testing via Github actions
-- Github CODEOWNERS to automatically add owners to Github PR
-- Github pull request remplates for standardizing description
 
-## Requirements:
-- [pre-commit](https://pre-commit.com/)
-    ```
-        pip install pre-commit
-    ```
-- [commitlint](https://github.com/conventional-changelog/commitlint)
-    ```
-        npm install -g @commitlint/cli @commitlint/config-conventional
-    ```
-    for this Nodejs is required. Download and install from here [Nodejs](https://nodejs.org/en/download/)
-
-
-## Acknowledgments
+## Acknowledgements
 - [drivendata/cookiecutter-data-science](https://github.com/drivendata/cookiecutter-data-science)
-- [pal0064/Sonic](https://github.com/pal0064/Sonic)
+
+
+## Quick start 
+
+The project can be built typing `make`.
