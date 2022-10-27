@@ -15,22 +15,25 @@ data/xml.tgz - Contains the meta-infornation in XML format (example: a01-122.xml
 ## Models
 
 Ref: [nanonets](https://nanonets.com/blog/handwritten-character-recognition/)
-    - Hidden Markov Models(HMM)
-    - [SVM](https://labelyourdata.com/articles/ai-handwriting-recognition)
-    - [CNN & RNN](https://towardsdatascience.com/build-a-handwritten-text-recognition-system-using-tensorflow-2326a3487cd5)
-    - [CNN & seq2seq](https://arxiv.org/abs/2112.13328)
-    - [LSTM](http://cs231n.stanford.edu/reports/2017/pdfs/810.pdf)
-    - Multi-dimensional Recurrent Neural Networks 
-    - Encoder-Decoder and Attention Networks
-    - Transformer Models
-        - [TrOCR](https://utorontomist.medium.com/handwriting-recognition-using-deep-learning-14ec078872b0)
-    - [CapsNets](https://towardsdatascience.com/https-medium-com-rachelwiles-have-we-solved-the-problem-of-handwriting-recognition-712e279f373b)
+- Hidden Markov Models(HMM)
+- [SVM](https://labelyourdata.com/articles/ai-handwriting-recognition)
+- [CNN & RNN](https://towardsdatascience.com/build-a-handwritten-text-recognition-system-using-tensorflow-2326a3487cd5)
+- [CNN & seq2seq](https://arxiv.org/abs/2112.13328)
+- [LSTM](http://cs231n.stanford.edu/reports/2017/pdfs/810.pdf)
+- Multi-dimensional Recurrent Neural Networks 
+- Encoder-Decoder and Attention Networks
+- Transformer Models
+    - [TrOCR](https://utorontomist.medium.com/handwriting-recognition-using-deep-learning-14ec078872b0)
+- [CapsNets](https://towardsdatascience.com/https-medium-com-rachelwiles-have-we-solved-the-problem-of-handwriting-recognition-712e279f373b)
     
 
 ## IAM dataset related code
 - https://keras.io/examples/vision/handwriting_recognition/
 - https://github.com/kartikgill/easter2
 - https://towardsdatascience.com/build-a-handwritten-text-recognition-system-using-tensorflow-2326a3487cd5
+
+## Notebook
+- https://colab.research.google.com/drive/1pHvnla4FJlLKw1mq-_xCkXQsr4byd5ga 
 
 
 
