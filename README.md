@@ -1,7 +1,17 @@
-#
+## Dataset 
 
-Project description
+[IAM](https://fki.tic.heia-fr.ch/databases/download-the-iam-handwriting-database)
+As dataset is huge, we have uploaded it to google drive. Google Colab will directly read from google drive. 
 
+The IAM Handwriting Database is hierarchically structured into forms (The name of the files correspond to the naming scheme of the LOB Corpus):
+Datas:
+data/ascii.tgz - Contains summarized meta information in ascii format.
+data/formsA-D.tgz data/formsE-H.tgz data/formsI-Z.tgz - Contains form images (example: a01-122.png).
+data/lines.tgz - Contains text lines (example: a01/a01-122/a01-122-02.png).
+data/sentences.tgz - Contains sentences, one for each line (example: a01/a01-122/a01-122-s01-02.png).
+data/words.tgz - Contains words (example: a01/a01-122/a01-122-s01-02.png).
+data/xml.tgz - Contains the meta-infornation in XML format (example: a01-122.xml).
+   
 Started on 2022-10-26.
 
 ## Project Organization
