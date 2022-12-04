@@ -16,10 +16,10 @@ Handwriting Recognition is an old ML problem that is still not completely solved
    
 ## Used Models
 
-[Naive Bayes](https://en.wikipedia.org/wiki/Naive_Bayes_classifier)
-[KNN](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm)
-[SVM](https://en.wikipedia.org/wiki/Support_vector_machine)
-[Random Forest](https://en.wikipedia.org/wiki/Random_forest)
+- [Naive Bayes](https://en.wikipedia.org/wiki/Naive_Bayes_classifier)
+- [KNN](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm)
+- [SVM](https://en.wikipedia.org/wiki/Support_vector_machine)
+- [Random Forest](https://en.wikipedia.org/wiki/Random_forest)
 
 ## Project Organization
 
