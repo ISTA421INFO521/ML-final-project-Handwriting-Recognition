@@ -1,5 +1,6 @@
 ## Introduction
-    Handwriting Recognition is an old ML problem that is still not completely solved because of its complexity. Once properly set up, It can be used to digitize different types of documents like historical texts, patient prescriptions, bank records, etc. In our project, we will be focussing on how we can utilize this technique to help society. We decided to create an application that will help visually impaired people listen to handwritten notes.
+
+Handwriting Recognition is an old ML problem that is still not completely solved because of its complexity. Once properly set up, It can be used to digitize different types of documents like historical texts, patient prescriptions, bank records, etc. In our project, we will be focussing on how we can utilize this technique to help society. We decided to create an application that will help visually impaired people listen to handwritten notes.
 
 ## Dataset 
 [IAM](https://fki.tic.heia-fr.ch/databases/download-the-iam-handwriting-database)
@@ -14,10 +15,11 @@
     data/xml.tgz - Contains the meta-infornation in XML format (example: a01-122.xml).
    
 ## Used Models
-    [Naive Bayes](https://en.wikipedia.org/wiki/Naive_Bayes_classifier)
-    [KNN](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm)
-    [SVM](https://en.wikipedia.org/wiki/Support_vector_machine)
-    [Random Forest](https://en.wikipedia.org/wiki/Random_forest)
+
+[Naive Bayes](https://en.wikipedia.org/wiki/Naive_Bayes_classifier)
+[KNN](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm)
+[SVM](https://en.wikipedia.org/wiki/Support_vector_machine)
+[Random Forest](https://en.wikipedia.org/wiki/Random_forest)
 
 ## Project Organization
 
@@ -39,6 +41,7 @@
 
 ```
 ## Features
+
 - Commit Message checking via commitlint
 - [Local Testing via pre-commit](https://pre-commit.com/)
 - Github Integration 
