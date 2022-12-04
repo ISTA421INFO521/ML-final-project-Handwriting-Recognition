@@ -29,6 +29,7 @@ Handwriting Recognition is an old ML problem that is still not completely solved
 ├── README.md          <- Introduction of repository
 ├── docs               <- Presentations
 ├── notebooks          <- Final report created using Jupyter notebook(Google Colab)
+├── proposal           <- Project Proposal
 ├── requirements.txt   <- Python packages requirement file
 ├── src                <- Source code
 |   |____ python       <- All python related code
