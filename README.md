@@ -21,6 +21,8 @@ Handwriting Recognition is an old ML problem that is still not completely solved
 - [SVM](https://en.wikipedia.org/wiki/Support_vector_machine)
 - [Random Forest](https://en.wikipedia.org/wiki/Random_forest)
 
+## Notebook
+
 ## Project Organization
 
 ```
@@ -60,9 +62,6 @@ Handwriting Recognition is an old ML problem that is still not completely solved
         npm install -g @commitlint/cli @commitlint/config-conventional
     ```
     for this Nodejs is required. Download and install from here [Nodejs](https://nodejs.org/en/download/)
-
-
-## Notebook
 
 
 ## References:
