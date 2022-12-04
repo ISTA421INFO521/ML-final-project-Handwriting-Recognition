@@ -3,4 +3,6 @@ pip
 pre-commit
 setuptools
 wheel
--e .
+gTTS
+boto3 
+scikit-optimize
