@@ -45,9 +45,9 @@ Sample image:
 
 ```{python}
 #| id: 5PUzvzocuPrj
-#| colab: {base_uri: 'https://localhost:8080/'}
 #| id: 5PUzvzocuPrj
-#| outputId: 437ba835-5277-4bd4-a24b-445c58366c6b
+#| colab: {base_uri: 'https://localhost:8080/'}
+#| outputId: c980503e-9667-4943-c3e5-a5da3ae20c3b
 # Download the dataset to google drive
 # https://fki.tic.heia-fr.ch/databases/iam-handwriting-database
 
@@ -57,11 +57,9 @@ drive.mount('/content/drive')
 
 ```{python}
 #| id: bcKgR9DBqp33
-#| colab: {base_uri: 'https://localhost:8080/'}
 #| id: bcKgR9DBqp33
-#| outputId: 5d6e7db9-7c6e-4d9b-8152-15b59189dfeb
-# %%capture
-!rm -r ml
+%%capture
+!rm -rf ml
 # Using personal repo because 521 org private repo access is limited.
 !git clone https://github.com/pal0064/ml
 import sys
@@ -115,16 +113,19 @@ from tabulate import tabulate
 from ml.model.models import get_gaussian_model, get_random_forest_model,get_knn_model,get_svm_model
 from ml.model.model_exec import run_model, run_model_with_cv,get_predict_from_model, get_accuracy_score
 from ml.model.performance.model_performance import get_performance_data
-from ml.model.performance.visualization.model_peformance_viz import make_box_plots_for_models_performance_comparison
+from ml.model.performance.visualization.model_peformance_viz import make_box_plots_for_models_performance_comparison, show_fig
 from ml.model.tuning.hyper_param_tuning import tune_svm_model, show_tuned_model_performance
 from processing.image.image_processing import read_image, show_image
+import plotly
 ```
 
 ```{python}
 #| id: uGopeFBkc9jO
 #| id: uGopeFBkc9jO
+#| colab: {base_uri: 'https://localhost:8080/', height: 17}
+#| outputId: 7cd50a55-0231-466a-eeed-59532a62991e
+plotly.offline.init_notebook_mode(connected=True)
 np.random.seed(2022)
-
 # Folder containing images of words
 base_path_for_images = "/words"
 
@@ -232,7 +233,7 @@ features = features/NORMALIZE_SCALE
 #| id: HrZ9EAZuWNbD
 #| colab: {base_uri: 'https://localhost:8080/'}
 #| id: HrZ9EAZuWNbD
-#| outputId: 2324419c-6604-4827-ed03-3583fa9a7da7
+#| outputId: 393698d5-6dd6-4404-b1e1-a7ab24d5ea89
 w_train = len(set(y_train.tolist())) # number of words in train set
 w_test = len(set(y_test.tolist())) # number of words in test set
 i_train = len(y_train.tolist()) # number of images in train set
@@ -252,7 +253,7 @@ We trained the dataset using the K cross-validation method with k=5 with differe
 #| id: QR-UQRDVZ6FA
 #| colab: {base_uri: 'https://localhost:8080/'}
 #| id: QR-UQRDVZ6FA
-#| outputId: 633b1910-e0c6-4d8f-8069-945e32654787
+#| outputId: 170a4f35-78e0-454d-c247-1657a09b8d69
 results = None
 model_names = [
       'GaussianNB',
@@ -263,6 +264,7 @@ for model_name in model_names:
   results = run_model(nb_model,x_train, y_train,x_test,y_test,model_name)
   METRICS[model_name] = run_model_with_cv(model_name,nb_model,x_train, y_train)
   print("\n\n")
+  final_model = nb_model
 ```
 
 *   K Nearest Neighbors
@@ -271,9 +273,9 @@ for model_name in model_names:
 
 ```{python}
 #| id: kkW9VgMRzS3m
-#| colab: {base_uri: 'https://localhost:8080/'}
 #| id: kkW9VgMRzS3m
-#| outputId: 1e62ae85-033b-4c10-e560-0e25ff6e5539
+#| colab: {base_uri: 'https://localhost:8080/'}
+#| outputId: 8f46c011-c32e-4ee8-9983-c6607886ae68
 model_name = 'KNN'
 knn_model = get_knn_model()
 run_model(knn_model,x_train, y_train,x_test,y_test,model_name)
@@ -285,9 +287,9 @@ METRICS[model_name] = run_model_with_cv(model_name,knn_model,x_train, y_train)
 
 ```{python}
 #| id: Rcx6-o9Xzin2
-#| colab: {base_uri: 'https://localhost:8080/'}
 #| id: Rcx6-o9Xzin2
-#| outputId: 0092d135-031a-4c99-dbb9-52f4b8bf8013
+#| colab: {base_uri: 'https://localhost:8080/'}
+#| outputId: 8e120c02-a52f-450b-d974-35dc74666cb5
 model_name = 'Random Forest'
 rf_model = get_random_forest_model()
 run_model(rf_model,x_train_unscaled, y_train,x_test_unscaled,y_test,model_name)
@@ -299,9 +301,9 @@ METRICS[model_name] = run_model_with_cv(model_name,rf_model,x_train_unscaled, y_
 
 ```{python}
 #| id: qppDt3UfDcYc
-#| colab: {base_uri: 'https://localhost:8080/'}
 #| id: qppDt3UfDcYc
-#| outputId: 4dbbbc90-bb6b-4867-ac4b-8e81e700af26
+#| colab: {base_uri: 'https://localhost:8080/'}
+#| outputId: 27dfd638-5610-4f6f-ee39-ab84f0d53a8b
 model_name = 'SVM Poly'
 svm_poly = get_svm_model()
 run_model(svm_poly,x_train, y_train,x_test,y_test,model_name)
@@ -310,9 +312,7 @@ METRICS[model_name]  = run_model_with_cv(model_name,svm_poly,x_train, y_train)
 
 ```{python}
 #| id: nJmAD2Rfu6Q1
-#| colab: {base_uri: 'https://localhost:8080/'}
 #| id: nJmAD2Rfu6Q1
-#| outputId: 76127e44-0491-4427-a1e0-c9f0cd5b8207
 # tuning using bayesian optimization
 final_model = tune_svm_model(x_train,y_train)
 ```
@@ -321,63 +321,108 @@ final_model = tune_svm_model(x_train,y_train)
 
 ```{python}
 #| id: 1xNmznAJ9Olz
-#| colab: {base_uri: 'https://localhost:8080/', height: 514}
+#| colab: {base_uri: 'https://localhost:8080/', height: 363}
 #| id: 1xNmznAJ9Olz
-#| outputId: 8ab8e4f5-b9f9-4c4a-f731-7fe62e73ff56
+#| outputId: 2154bead-5194-434c-840d-f2448a70af33
 performance_df = get_performance_data(METRICS)
 performance_df.head(10)
 ```
 
 ```{python}
 #| id: 8Zf9ZyFC2Fht
-#| colab: {base_uri: 'https://localhost:8080/', height: 837}
+#| colab: {base_uri: 'https://localhost:8080/', height: 817}
 #| id: 8Zf9ZyFC2Fht
-#| outputId: 6e0e83b5-62fc-4b21-d255-ef2e9908dcaa
+#| outputId: 24bb688e-0089-48a8-cf10-acf400f7432b
 # Accuracy Comparison
-make_box_plots_for_models_performance_comparison(performance_df,['train_accuracy','test_accuracy'],'Accuracy')
+fig = make_box_plots_for_models_performance_comparison(performance_df,['train_accuracy','test_accuracy'],'Accuracy')
+fig.show() # to export in pynb
+```
+
+```{python}
+#| id: mHFFD-Y4HVAn
+#| colab: {base_uri: 'https://localhost:8080/', height: 817}
+#| id: mHFFD-Y4HVAn
+#| outputId: ac2e7e81-6074-409c-f751-45ec0e2edb8b
+show_fig(fig)
 ```
 
 ```{python}
 #| id: F3gMzdLp31ws
-#| colab: {base_uri: 'https://localhost:8080/', height: 837}
 #| id: F3gMzdLp31ws
-#| outputId: 3eed9c0c-de90-4b71-8ce1-61ffdc353700
+#| colab: {base_uri: 'https://localhost:8080/', height: 817}
+#| outputId: a373deee-0448-490c-99fe-35c9a038074a
 # Precision Comparison
-make_box_plots_for_models_performance_comparison(performance_df,['train_precision','test_precision'],'Precision')
+fig=make_box_plots_for_models_performance_comparison(performance_df,['train_precision','test_precision'],'Precision')
+fig.show() # to export in pynb
+```
+
+```{python}
+#| id: OCAcwLt9H9tA
+#| colab: {base_uri: 'https://localhost:8080/', height: 817}
+#| id: OCAcwLt9H9tA
+#| outputId: 1ea7230e-61e4-4ee3-9a1d-349d9469cd55
+show_fig(fig)
 ```
 
 ```{python}
 #| id: d9YaDa-63-hx
-#| colab: {base_uri: 'https://localhost:8080/', height: 837}
 #| id: d9YaDa-63-hx
-#| outputId: a3362632-9d1f-457d-8b45-1c95b2f589c9
+#| colab: {base_uri: 'https://localhost:8080/', height: 817}
+#| outputId: 05d802be-bad3-41b6-f2d2-1d50331f2fce
 # Recall Comparison
-make_box_plots_for_models_performance_comparison(performance_df,['train_recall','test_recall'],'Recall')
+fig = make_box_plots_for_models_performance_comparison(performance_df,['train_recall','test_recall'],'Recall')
+fig.show() # to export in pynb
+```
+
+```{python}
+#| id: kPZv_PRYIEKC
+#| colab: {base_uri: 'https://localhost:8080/', height: 817}
+#| id: kPZv_PRYIEKC
+#| outputId: f8362a37-6c18-494c-df66-91ddd37c3b93
+show_fig(fig)
 ```
 
 ```{python}
 #| id: WCZYOf3G4DW1
-#| colab: {base_uri: 'https://localhost:8080/', height: 837}
 #| id: WCZYOf3G4DW1
-#| outputId: 8aeac9c3-eb9a-4a91-ff11-1f37cce72912
+#| colab: {base_uri: 'https://localhost:8080/', height: 817}
+#| outputId: 2643d6b1-ebe7-4323-edff-a49657bb9106
 # F1 Score Comparison
-make_box_plots_for_models_performance_comparison(performance_df,['train_f1','test_f1'],'F1 Score')
+fig = make_box_plots_for_models_performance_comparison(performance_df,['train_f1','test_f1'],'F1 Score')
+fig.show() # to export in pynb
+```
+
+```{python}
+#| id: QsgFfwFIIHlU
+#| colab: {base_uri: 'https://localhost:8080/', height: 817}
+#| id: QsgFfwFIIHlU
+#| outputId: 8c04a782-e60f-4882-bfcb-8b532cfa80c0
+show_fig(fig)
 ```
 
 ```{python}
 #| id: fMjN3_S34MPu
-#| colab: {base_uri: 'https://localhost:8080/', height: 837}
 #| id: fMjN3_S34MPu
-#| outputId: 229d7461-dfc6-449e-c054-77c2931308f8
+#| colab: {base_uri: 'https://localhost:8080/', height: 817}
+#| outputId: 367bd884-8fa6-4f51-da49-f878dab15805
 # Score Time and Fit Time Comparison
-make_box_plots_for_models_performance_comparison(performance_df,['score_time','fit_time'],'Score Time & Fit Time')
+fig = make_box_plots_for_models_performance_comparison(performance_df,['score_time','fit_time'],'Score Time & Fit Time')
+fig.show()
 ```
 
 ```{python}
+#| id: Jkh-w83tIPFG
+#| colab: {base_uri: 'https://localhost:8080/', height: 817}
+#| id: Jkh-w83tIPFG
+#| outputId: 8f25f628-ceb7-45ad-81a3-db8515a38b98
+show_fig(fig)
+```
+
+```{python}
+#| id: 5__kIJN1EJIV
 #| id: 5__kIJN1EJIV
 #| colab: {base_uri: 'https://localhost:8080/'}
-#| id: 5__kIJN1EJIV
-#| outputId: c1d9d950-8614-4849-a7be-8ed2a76522a2
+#| outputId: 1e673804-5653-4b0f-877c-6c7969c53969
 # SVM model peformance after hyperparameter tuning
 show_tuned_model_performance(final_model,x_test,y_test)
 ```
@@ -400,9 +445,9 @@ Sequence Extraction](https://arxiv.org/pdf/2103.06450.pdf)
 
 ```{python}
 #| id: J_y-86sWJInr
-#| colab: {base_uri: 'https://localhost:8080/', height: 269}
 #| id: J_y-86sWJInr
-#| outputId: 46b88f18-5bd1-485a-84d1-ac6ce026c35a
+#| colab: {base_uri: 'https://localhost:8080/', height: 269}
+#| outputId: edee9521-1602-4a51-d217-58283703afff
 image_path = '/forms/a01-000u.png'
 show_image(read_image(image_path))
 ```
@@ -411,9 +456,9 @@ Using Human like voice
 
 ```{python}
 #| id: dcP3qOBlbFdV
-#| colab: {base_uri: 'https://localhost:8080/', height: 792}
 #| id: dcP3qOBlbFdV
-#| outputId: b9b5066b-902d-47f5-b2a3-c7da3d95e90f
+#| colab: {base_uri: 'https://localhost:8080/', height: 830}
+#| outputId: 46466490-54cf-4f9a-c545-e62764caa892
 # Using Google Text to Speech engine
 sound_file,predictions = recognize(final_model,label_encoder,image_path,IMAGE_SIZE,NORMALIZE_SCALE,show_sample=20,forms=True,engine_type='gtts') 
 print(" ".join(predictions))
@@ -437,9 +482,7 @@ Using Human like voice
 
 ```{python}
 #| id: e51AglM40EHh
-#| colab: {base_uri: 'https://localhost:8080/', height: 830}
 #| id: e51AglM40EHh
-#| outputId: f0d9b186-2095-4bdc-e45a-e21ab6dd7a3a
 # we are keeping the code commented. Please uncomment once you have uploaded the credentials
 # sound_file,predictions = recognize(final_model,label_encoder,image_path,IMAGE_SIZE,NORMALIZE_SCALE,show_sample=10,forms=True,engine_type='polly') #use polly or gtts for aws polly
 # print(" ".join(predictions))
@@ -450,9 +493,9 @@ Trying python package on same image
 
 ```{python}
 #| id: rgLYskLPDnBd
-#| colab: {base_uri: 'https://localhost:8080/'}
 #| id: rgLYskLPDnBd
-#| outputId: 22a296ef-9e7a-405a-e98d-578df9b7389e
+#| colab: {base_uri: 'https://localhost:8080/'}
+#| outputId: 83fe3018-98d1-49e4-e68a-68b2cc195b25
 %%capture
 # Trying easyocr library
 
@@ -464,9 +507,9 @@ r_easy_ocr = reader.readtext(image,detail=0)
 
 ```{python}
 #| id: Tyf--qYftha8
-#| colab: {base_uri: 'https://localhost:8080/', height: 71}
+#| colab: {base_uri: 'https://localhost:8080/', height: 54}
 #| id: Tyf--qYftha8
-#| outputId: ea996d19-ff83-499e-855c-dd2afd420c77
+#| outputId: 321ef831-123a-4eea-ec52-34f8a8bfc28e
 " ".join(r_easy_ocr)
 ```
 
@@ -481,5 +524,4 @@ Traditional machine learning models do not perform well so using Neural network 
 # Conclusion
 
 We did handwriting recognition using different traditional models and image segmentation. The model with the best performance was Support Vector Machines. This model is easy to replicate and makes it easy to understand. Considering the performance, traditional ML models do not outperform Neural Networks. The image segmentation approach requires a lot of training data for each word, in order to predict accurately. It does not perform well when the data changes for e.g. curved text, change in height and width, and formatting and indentation is not always preserved. So, Image to Sequence architecture with Neural Networks implementation seems to be a better method, however it may not be as easily replicated as it is more complex and requires more computational costs. 
-
 
