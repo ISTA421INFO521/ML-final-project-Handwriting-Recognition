@@ -22,7 +22,7 @@ Handwriting Recognition is an old ML problem that is still not completely solved
 - [Random Forest](https://en.wikipedia.org/wiki/Random_forest)
 
 ## Notebook
-    https://colab.research.google.com/drive/1H1nAziSyWTogdpAuGtHPYKoHqoz_UJYF#scrollTo=GN4PPpvw9IrQ 
+    https://colab.research.google.com/drive/1H1nAziSyWTogdpAuGtHPYKoHqoz_UJYF 
 
 ## Project Organization
 
