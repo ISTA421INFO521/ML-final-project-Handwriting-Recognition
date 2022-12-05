@@ -45,8 +45,8 @@ Sample image:
 
 ```{python}
 #| id: 5PUzvzocuPrj
-#| id: 5PUzvzocuPrj
 #| colab: {base_uri: 'https://localhost:8080/'}
+#| id: 5PUzvzocuPrj
 #| outputId: 437ba835-5277-4bd4-a24b-445c58366c6b
 # Download the dataset to google drive
 # https://fki.tic.heia-fr.ch/databases/iam-handwriting-database
@@ -57,8 +57,8 @@ drive.mount('/content/drive')
 
 ```{python}
 #| id: bcKgR9DBqp33
-#| id: bcKgR9DBqp33
 #| colab: {base_uri: 'https://localhost:8080/'}
+#| id: bcKgR9DBqp33
 #| outputId: 5d6e7db9-7c6e-4d9b-8152-15b59189dfeb
 # %%capture
 !rm -r ml
@@ -425,21 +425,33 @@ Using Human like voice
 
 ```{python}
 #| id: mXhPGkMLJR5I
-#| colab: {base_uri: 'https://localhost:8080/', height: 830}
 #| id: mXhPGkMLJR5I
-#| outputId: bf72a471-cde5-46b0-ae1f-f61ae92617c9
 # Using AWS Polly engine
-sound_file,predictions = recognize(final_model,label_encoder,image_path,IMAGE_SIZE,NORMALIZE_SCALE,show_sample=10,forms=True,engine_type='polly') #use polly or gtts for aws polly
-print(" ".join(predictions))
-Audio(sound_file, autoplay=False)
+# To use AWS Polly, we need AWS Credentials (Access Key, Secret Key).
+# Upload aws Credentials profile file to root directory of the project. File name should be aws_credentials.
+#sample content of file:
+#[default]
+#aws_access_key_id = AAAAAAA
+#aws_secret_access_key = BBBB
+```
+
+```{python}
+#| id: e51AglM40EHh
+#| colab: {base_uri: 'https://localhost:8080/', height: 830}
+#| id: e51AglM40EHh
+#| outputId: f0d9b186-2095-4bdc-e45a-e21ab6dd7a3a
+# we are keeping the code commented. Please uncomment once you have uploaded the credentials
+# sound_file,predictions = recognize(final_model,label_encoder,image_path,IMAGE_SIZE,NORMALIZE_SCALE,show_sample=10,forms=True,engine_type='polly') #use polly or gtts for aws polly
+# print(" ".join(predictions))
+# Audio(sound_file, autoplay=False)
 ```
 
 Trying python package on same image
 
 ```{python}
 #| id: rgLYskLPDnBd
-#| id: rgLYskLPDnBd
 #| colab: {base_uri: 'https://localhost:8080/'}
+#| id: rgLYskLPDnBd
 #| outputId: 22a296ef-9e7a-405a-e98d-578df9b7389e
 %%capture
 # Trying easyocr library
