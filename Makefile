@@ -28,5 +28,3 @@ generate-reports:
 	# install quarto
 	quarto convert notebooks/HTR.ipynb
 	mv notebooks/HTR.qmd docs/
-	python3 -m jupyter nbconvert --to html notebooks/HTR.ipynb
-	mv notebooks/HTR.html docs/

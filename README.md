@@ -30,8 +30,8 @@ Handwriting Recognition is an old ML problem that is still not completely solved
 ├── LICENSE
 ├── Makefile           <- Makefile with commands like `make install-python-packages` or `make download-data-from-google-drive`
 ├── README.md          <- Introduction of repository
-├── docs               <- Presentations, Reports(HTML/QMD)
-├── notebooks          <- Final report created using Jupyter notebook(Google Colab)
+├── docs               <- Presentations, Reports(QMD)
+├── notebooks          <- Final report created using Jupyter notebook(Google Colab) (Recommended)
 ├── proposal           <- Project Proposal
 ├── requirements.txt   <- Python packages requirement file
 ├── src                <- Source code
