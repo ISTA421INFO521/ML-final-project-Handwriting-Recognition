@@ -48,7 +48,7 @@ Sample image:
 #| id: bcKgR9DBqp33
 %%capture
 !rm -rf ml
-# Using personal repo because 521 org private repo access is limited. We did not copy whole code in this repo, only the common functions. Main repo is
+# Using personal repo because 521 org private repo access is limited. We did not copy whole code in this repo, only the common functions. Main repo is still https://github.com/ISTA421INFO521/ML-final-project-Handwriting-Recognition
 !git clone https://github.com/pal0064/ml
 ```
 
