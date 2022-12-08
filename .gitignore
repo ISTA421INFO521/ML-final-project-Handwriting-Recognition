@@ -10,7 +10,6 @@
 
 docs/*.html
 docs/*.docx
-docs/*.pdf
 
 # output files
 output/*
