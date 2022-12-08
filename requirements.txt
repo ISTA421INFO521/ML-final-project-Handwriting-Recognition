@@ -13,3 +13,4 @@ tabulate
 scikit-optimize
 easyocr
 nbconvert
+kaleido

@@ -5,10 +5,10 @@ install-sys-packages:
 	sudo apt update && sudo apt install espeak ffmpeg libespeak1
 
 install-python-packages:
-	pip install gTTS boto3 scikit-optimize botocore matplotlib numpy opencv_python pandas plotly scikit_learn tabulate easyocr jupyterlab nbconvert
+	pip install gTTS boto3 scikit-optimize botocore matplotlib numpy opencv_python pandas plotly scikit_learn tabulate easyocr jupyterlab nbconvert kaleido
 
 install-python-packages-colab:
-	pip install gTTS boto3 scikit-optimize easyocr 
+	pip install gTTS boto3 scikit-optimize easyocr kaleido
 
 download-data-from-google-drive:
 	cp -r /content/drive/MyDrive/iam_dataset /
@@ -28,3 +28,4 @@ generate-reports:
 	# install quarto
 	quarto convert notebooks/HTR.ipynb
 	mv notebooks/HTR.qmd docs/
+	jupyter nbconvert --to pdf HTR.ipynb

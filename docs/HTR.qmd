@@ -44,26 +44,12 @@ Sample image:
 <font size = 5>Initial Setup</font>
 
 ```{python}
-#| id: 5PUzvzocuPrj
-#| colab: {base_uri: 'https://localhost:8080/'}
-#| id: 5PUzvzocuPrj
-#| outputId: dfd8a063-76d5-47ee-fb3c-a0492a38c80b
-# Download the dataset to google drive
-# https://fki.tic.heia-fr.ch/databases/iam-handwriting-database
-
-from google.colab import drive
-drive.mount('/content/drive')
-```
-
-```{python}
 #| id: bcKgR9DBqp33
 #| id: bcKgR9DBqp33
 %%capture
 !rm -rf ml
-# Using personal repo because 521 org private repo access is limited.
+# Using personal repo because 521 org private repo access is limited. We did not copy whole code in this repo, only the common functions. Main repo is
 !git clone https://github.com/pal0064/ml
-import sys
-sys.path.insert(1, "/content/ml/src/python")
 ```
 
 ```{python}
@@ -72,6 +58,19 @@ sys.path.insert(1, "/content/ml/src/python")
 %%capture
 !cd ml;make install-sys-packages
 !cd ml;make install-python-packages
+# restart runtime, some libraries need that.
+```
+
+```{python}
+#| id: 5PUzvzocuPrj
+#| colab: {base_uri: 'https://localhost:8080/'}
+#| id: 5PUzvzocuPrj
+#| outputId: 39ef7ee9-3c01-4e7a-ace1-bedec6f7b220
+# Download the dataset to google drive
+# https://fki.tic.heia-fr.ch/databases/iam-handwriting-database
+
+from google.colab import drive
+drive.mount('/content/drive')
 ```
 
 <font size = 5>Download Dataset</font>
@@ -100,6 +99,8 @@ sys.path.insert(1, "/content/ml/src/python")
 ```{python}
 #| id: OK4W6r4p3bVY
 #| id: OK4W6r4p3bVY
+import sys
+sys.path.insert(1, "/content/ml/src/python")
 from IPython.display import Audio
 import numpy as np
 from datasets.iam.labels_pre_processing import get_input_for_labels_based_max_size,get_images_and_labels,get_features_and_labels,get_input_for_labels_based_on_training_words,get_word 
@@ -118,14 +119,14 @@ from ml.model.tuning.hyper_param_tuning import tune_svm_model, show_tuned_model_
 from processing.image.image_processing import read_image, show_image
 from processing.audio.tts import convert_to_audio
 import plotly
+import plotly.io as pio
 ```
 
 ```{python}
 #| id: uGopeFBkc9jO
-#| colab: {base_uri: 'https://localhost:8080/', height: 17}
 #| id: uGopeFBkc9jO
-#| outputId: c8625e26-917e-4dd8-b80e-116d0d5984af
-plotly.offline.init_notebook_mode(connected=True)
+
+pio.renderers.default = "colab+notebook+pdf" 
 np.random.seed(2022)
 # Folder containing images of words
 base_path_for_images = "/words"
@@ -234,7 +235,7 @@ features = features/NORMALIZE_SCALE
 #| id: HrZ9EAZuWNbD
 #| colab: {base_uri: 'https://localhost:8080/'}
 #| id: HrZ9EAZuWNbD
-#| outputId: f1bc5704-08f7-493b-c094-2b361a814589
+#| outputId: 94e04cde-89ab-4227-8c75-84c4d70835b4
 w_train = len(set(y_train.tolist())) # number of words in train set
 w_test = len(set(y_test.tolist())) # number of words in test set
 i_train = len(y_train.tolist()) # number of images in train set
@@ -254,7 +255,7 @@ We trained the dataset using the K cross-validation method with k=5 with differe
 #| id: QR-UQRDVZ6FA
 #| colab: {base_uri: 'https://localhost:8080/'}
 #| id: QR-UQRDVZ6FA
-#| outputId: d778394e-0496-45bc-aebe-441a63a5ae8c
+#| outputId: 04e0c459-7c8d-4c6d-dbb4-4d4f1dd0ce2b
 results = None
 model_names = [
       'GaussianNB',
@@ -276,7 +277,7 @@ for model_name in model_names:
 #| id: kkW9VgMRzS3m
 #| colab: {base_uri: 'https://localhost:8080/'}
 #| id: kkW9VgMRzS3m
-#| outputId: 3f2120c7-96a5-4518-b69a-aac18e9aa3b0
+#| outputId: f96fe29a-4b67-4d3e-91ec-62c13d9b4ab7
 model_name = 'KNN'
 knn_model = get_knn_model()
 run_model(knn_model,x_train, y_train,x_test,y_test,model_name)
@@ -288,9 +289,9 @@ METRICS[model_name] = run_model_with_cv(model_name,knn_model,x_train, y_train)
 
 ```{python}
 #| id: Rcx6-o9Xzin2
-#| colab: {background_save: true, base_uri: 'https://localhost:8080/'}
+#| colab: {base_uri: 'https://localhost:8080/'}
 #| id: Rcx6-o9Xzin2
-#| outputId: 8ea680f1-1538-40d1-d3f8-5bb959be5f2e
+#| outputId: 42cc7605-acf3-4df2-852d-6012df8a143e
 model_name = 'Random Forest'
 rf_model = get_random_forest_model()
 run_model(rf_model,x_train_unscaled, y_train,x_test_unscaled,y_test,model_name)
@@ -304,7 +305,7 @@ METRICS[model_name] = run_model_with_cv(model_name,rf_model,x_train_unscaled, y_
 #| id: qppDt3UfDcYc
 #| id: qppDt3UfDcYc
 #| colab: {base_uri: 'https://localhost:8080/'}
-#| outputId: 3d153f0c-b352-48a9-8971-2b25fbb6dce9
+#| outputId: 485fe8e9-0feb-41c2-f989-532e2acf7a47
 model_name = 'SVM Poly'
 svm_poly = get_svm_model()
 run_model(svm_poly,x_train, y_train,x_test,y_test,model_name)
@@ -315,7 +316,7 @@ METRICS[model_name]  = run_model_with_cv(model_name,svm_poly,x_train, y_train)
 #| id: nJmAD2Rfu6Q1
 #| id: nJmAD2Rfu6Q1
 #| colab: {base_uri: 'https://localhost:8080/'}
-#| outputId: 929d5c70-027b-4d7b-a3b9-5188c5fd3dc1
+#| outputId: 7df1b9af-fe22-4a64-fce9-ce8f8166e2d6
 # tuning using bayesian optimization
 final_model = tune_svm_model(x_train,y_train)
 ```
@@ -326,7 +327,7 @@ final_model = tune_svm_model(x_train,y_train)
 #| id: 1xNmznAJ9Olz
 #| id: 1xNmznAJ9Olz
 #| colab: {base_uri: 'https://localhost:8080/', height: 363}
-#| outputId: 4660dcc1-3b7c-47cc-c087-d6f5a236f26b
+#| outputId: bc92eb93-f994-42ab-c8f7-1fe331dc9b71
 performance_df = get_performance_data(METRICS)
 performance_df.head(10)
 ```
@@ -335,97 +336,97 @@ performance_df.head(10)
 #| id: 8Zf9ZyFC2Fht
 #| id: 8Zf9ZyFC2Fht
 #| colab: {base_uri: 'https://localhost:8080/', height: 817}
-#| outputId: a00bd7f2-30c9-459c-bced-fb22cc0b322a
+#| outputId: 016e1333-c2f7-4cd2-9063-b4f92767cf66
 # Accuracy Comparison
 fig = make_box_plots_for_models_performance_comparison(performance_df,['train_accuracy','test_accuracy'],'Accuracy')
-fig.show() # to export in pynb
-```
-
-```{python}
-#| id: mHFFD-Y4HVAn
-#| id: mHFFD-Y4HVAn
-#| colab: {base_uri: 'https://localhost:8080/', height: 817}
-#| outputId: d474a452-6e3f-4c83-a881-a9ec42a227d9
 show_fig(fig)
 ```
 
 ```{python}
+#| id: hGDOFmNu8-Id
+#| colab: {base_uri: 'https://localhost:8080/', height: 817}
+#| id: hGDOFmNu8-Id
+#| outputId: d33d1de9-3616-48cb-a906-14316df6987b
+fig.show() #for exporting to pdf & local pynb
+```
+
+```{python}
 #| id: F3gMzdLp31ws
 #| id: F3gMzdLp31ws
 #| colab: {base_uri: 'https://localhost:8080/', height: 817}
-#| outputId: 54bfb7e1-4e15-441b-b9e9-3e296a5c9264
+#| outputId: 1d909e93-c135-4e87-fbb4-8f07fade39fe
 # Precision Comparison
 fig=make_box_plots_for_models_performance_comparison(performance_df,['train_precision','test_precision'],'Precision')
-fig.show() # to export in pynb
-```
-
-```{python}
-#| id: OCAcwLt9H9tA
-#| id: OCAcwLt9H9tA
-#| colab: {base_uri: 'https://localhost:8080/', height: 817}
-#| outputId: 71df88be-9433-40ac-80a5-4fdc2c40810b
 show_fig(fig)
 ```
 
 ```{python}
+#| id: R6EcMZTs6vYx
+#| colab: {base_uri: 'https://localhost:8080/', height: 817}
+#| id: R6EcMZTs6vYx
+#| outputId: 7842686d-446d-4d32-87a0-6d2c04af0538
+fig.show() #for exporting to pdf & local pynb
+```
+
+```{python}
 #| id: d9YaDa-63-hx
 #| id: d9YaDa-63-hx
 #| colab: {base_uri: 'https://localhost:8080/', height: 817}
-#| outputId: c2453558-bb52-4b7b-a5cd-809c80091c5e
+#| outputId: ac175978-c18c-4b3d-d999-1e196c92c945
 # Recall Comparison
 fig = make_box_plots_for_models_performance_comparison(performance_df,['train_recall','test_recall'],'Recall')
-fig.show() # to export in pynb
-```
-
-```{python}
-#| id: kPZv_PRYIEKC
-#| id: kPZv_PRYIEKC
-#| colab: {base_uri: 'https://localhost:8080/', height: 817}
-#| outputId: 16bea1fd-9bea-4459-c5a9-fb268457d74a
 show_fig(fig)
 ```
 
 ```{python}
+#| id: kPZv_PRYIEKC
+#| id: kPZv_PRYIEKC
+#| colab: {base_uri: 'https://localhost:8080/', height: 817}
+#| outputId: a2ca0daa-df47-4361-b094-839529702679
+fig.show() #for exporting to pdf & local pynb
+```
+
+```{python}
 #| id: WCZYOf3G4DW1
 #| id: WCZYOf3G4DW1
 #| colab: {base_uri: 'https://localhost:8080/', height: 817}
-#| outputId: c4fb4433-d681-4397-dae6-f68a56c7d28e
+#| outputId: c7e94448-4c91-4baa-a662-c896c37691d8
 # F1 Score Comparison
 fig = make_box_plots_for_models_performance_comparison(performance_df,['train_f1','test_f1'],'F1 Score')
-fig.show() # to export in pynb
-```
-
-```{python}
-#| id: QsgFfwFIIHlU
-#| id: QsgFfwFIIHlU
-#| colab: {base_uri: 'https://localhost:8080/', height: 817}
-#| outputId: 729f05bb-2aa3-4b03-9085-caa1cdd0a117
 show_fig(fig)
 ```
 
 ```{python}
+#| id: QsgFfwFIIHlU
+#| id: QsgFfwFIIHlU
+#| colab: {base_uri: 'https://localhost:8080/', height: 817}
+#| outputId: af055155-4f8f-467d-86c5-f622c89091cd
+fig.show() #for exporting to pdf & local pynb
+```
+
+```{python}
 #| id: fMjN3_S34MPu
 #| id: fMjN3_S34MPu
 #| colab: {base_uri: 'https://localhost:8080/', height: 817}
-#| outputId: b571aaed-c9b0-4697-8162-2aae13e5095a
+#| outputId: bd420b36-7194-4a5b-aebd-b201509a30fe
 # Score Time and Fit Time Comparison
 fig = make_box_plots_for_models_performance_comparison(performance_df,['score_time','fit_time'],'Score Time & Fit Time')
-fig.show()
+show_fig(fig)
 ```
 
 ```{python}
 #| id: Jkh-w83tIPFG
 #| id: Jkh-w83tIPFG
 #| colab: {base_uri: 'https://localhost:8080/', height: 817}
-#| outputId: b57f2dab-92b9-4184-909f-129d950cfde1
-show_fig(fig)
+#| outputId: 3b2279d0-0dff-43b9-c8d2-abb85e1ef99d
+fig.show() #for exporting to pdf & local pynb
 ```
 
 ```{python}
 #| id: 5__kIJN1EJIV
 #| id: 5__kIJN1EJIV
 #| colab: {base_uri: 'https://localhost:8080/'}
-#| outputId: cc7f1936-3ed2-40bf-b527-e83d039c7bd4
+#| outputId: f1b9ff29-1051-43f5-8ff8-e5d0c2d6d868
 # SVM model peformance after hyperparameter tuning
 show_tuned_model_performance(final_model,x_test,y_test)
 ```
@@ -450,7 +451,7 @@ Sequence Extraction](https://arxiv.org/pdf/2103.06450.pdf)
 #| id: J_y-86sWJInr
 #| id: J_y-86sWJInr
 #| colab: {base_uri: 'https://localhost:8080/', height: 269}
-#| outputId: bc658cc7-42de-4eee-e890-cb5092e253b5
+#| outputId: 4b3070fd-fcfe-4d03-970b-f353a53a9db0
 image_path = '/forms/a01-000u.png'
 show_image(read_image(image_path))
 ```
@@ -460,8 +461,8 @@ Using Human like voice
 ```{python}
 #| id: dcP3qOBlbFdV
 #| id: dcP3qOBlbFdV
-#| colab: {base_uri: 'https://localhost:8080/', height: 792}
-#| outputId: 0d1a6137-cbea-4fe9-ca68-26482028d467
+#| colab: {base_uri: 'https://localhost:8080/', height: 830}
+#| outputId: c0e269e4-12c8-484a-edd3-158c5e6b3e2d
 # Using Google Text to Speech engine
 sound_file,predictions = recognize(final_model,label_encoder,image_path,IMAGE_SIZE,NORMALIZE_SCALE,show_sample=20,forms=True,engine_type='gtts') 
 print(" ".join(predictions))
@@ -494,9 +495,7 @@ aws_secret_access_key = BBBB
 
 ```{python}
 #| id: A7sqE0aZ8pac
-#| colab: {base_uri: 'https://localhost:8080/', height: 75}
 #| id: A7sqE0aZ8pac
-#| outputId: f5613f3f-8d7d-4c5d-8f9e-95b06f912f1e
 # Sample of using polly Text To Speech engine
 
 # text = ['Hi','Cristian','I', 'am', 'Justin', '.', 'Congrats','on','being', 'nominated', 'for', 'afrocoloumbian', 'of', 'the', 'year', '2022']
@@ -508,6 +507,8 @@ Trying python package on same image
 ```{python}
 #| id: rgLYskLPDnBd
 #| id: rgLYskLPDnBd
+#| colab: {base_uri: 'https://localhost:8080/'}
+#| outputId: e34bff0b-70d3-4061-c739-279fb6035e78
 %%capture
 # Trying easyocr library
 
@@ -520,8 +521,8 @@ r_easy_ocr = reader.readtext(image,detail=0)
 ```{python}
 #| id: Tyf--qYftha8
 #| id: Tyf--qYftha8
-#| colab: {base_uri: 'https://localhost:8080/', height: 89}
-#| outputId: f598ec97-416b-446e-fada-a0edfb1f4d59
+#| colab: {base_uri: 'https://localhost:8080/', height: 53}
+#| outputId: a150ddea-9607-4c9d-af8f-44c818a65eae
 " ".join(r_easy_ocr)
 ```
 
